@@ -3,12 +3,14 @@ import http from 'http';
 import { createConnection } from 'typeorm';
 
 import app from './app';
+import { CacheService } from './services/CacheService';
 
 const serverConfig = config.get<any>('server');
 
 createConnection()
   .then(() => {
     // init services
+    CacheService.initialize();
 
     const httpServer = http.createServer(app);
     const port = process.env.PORT || serverConfig.port;

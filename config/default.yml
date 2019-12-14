@@ -6,5 +6,9 @@ db:
   post: 5432
   database: 'dev-db'
 
+redis:
+  host: cache
+  port: 6379
+
 jwt:
   expiresIn: 3600

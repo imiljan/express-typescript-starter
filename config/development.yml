@@ -5,4 +5,5 @@ db:
   synchronize: true
 
 jwt:
-  secret: 'supersecret'
+  accessSecret: 'supersecret'
+  refreshSecret: 'supersecret2'
