@@ -1,0 +1,60 @@
+version: '3.0'
+
+services:
+  api:
+    build: .
+    image: api:0.0.1
+    container_name: api
+    volumes:
+      - .:/usr/src/app
+    networks:
+      - temp-network
+    depends_on:
+      - db
+    environment:
+      NODE_ENV: development
+    ports:
+      - 3000:3000
+
+  db:
+    image: postgres
+    container_name: db
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dev-db
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - temp-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    ports:
+      - 6400:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - /var/lib/pgadmin
+    networks:
+      - temp-network
+    depends_on:
+      - db
+
+  cache:
+    image: redis
+    container_name: cache
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - temp-network
+
+networks:
+  temp-network:
+    driver: bridge

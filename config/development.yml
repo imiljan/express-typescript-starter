@@ -1,0 +1,8 @@
+db:
+  hots: 'db'
+  username: 'dev'
+  password: 'dev'
+  synchronize: true
+
+jwt:
+  secret: 'supersecret'
