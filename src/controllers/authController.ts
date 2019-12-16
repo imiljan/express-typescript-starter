@@ -83,3 +83,10 @@ export const logout = async (req: Request, res: Response) => {
       .send({ message: error.message || 'Internal server error', error });
   }
 };
+
+export const me = (req: Request, res: Response) => {
+  const user = req.user!;
+  delete user.password;
+  delete user.tokenVersion;
+  return res.status(200).send({ user });
+};
